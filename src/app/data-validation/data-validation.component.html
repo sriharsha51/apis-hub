@@ -1,0 +1,173 @@
+<div class="box-container">
+  <div class="box">
+    <h3>Check email addresses using MAILBOXLAYER API</h3>
+    <p>Validates and thoroughly checks actual existence of email addresses using SMTP and MX-Records right at the point of entry
+      into your system. The API also checks whether the email addresses are disposable or free and provides quality of each
+      eamil address. To integrate MAILBOXLAYER API into your application visit
+      <a href="https://mailboxlayer.com/" target="_blank">MAILBOXLAYER</a>
+    </p>
+    <div class="search" class="form-group">
+      <input class="form-control" class="search" [(ngModel)]="email" placeholder="Check Email" (keyup.enter)="checkEmail(email)"
+      />
+      <button class="btn btn-primary" (click)="checkEmail(email)">Search</button>
+    </div>
+    <div class="message">
+      <p *ngIf="messageClass">{{ message }}</p>
+      <p *ngIf="loadingResults">Fetching Results...</p>
+    </div>
+    <table *ngIf="results" class="table table-bordered table-stripped table-hover table-condensed">
+      <thead>
+        <tr class="info">
+          <th colspan="2">Results</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr [ngClass]="{'success': results.format_valid, 'danger': !results.format_valid}">
+          <td>Validity</td>
+          <td>
+            <span *ngIf="results.format_valid; else NotValid">Valid</span>
+            <ng-template #NotValid>Not Valid</ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="results.format_valid">
+          <td>Disposable</td>
+          <td>
+            <span *ngIf="results.disposable && results.format_valid; else NotDisposable">Yes</span>
+            <ng-template #NotDisposable>No</ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="results.format_valid">
+          <td>SMTP Check</td>
+          <td>
+            <span *ngIf="results.smtp_check; else NotSMTP">Passed</span>
+            <ng-template #NotSMTP>Failed</ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="results.format_valid">
+          <td>MX-Records Check</td>
+          <td>
+            <span *ngIf="results.mx_found; else NotMX">Passed</span>
+            <ng-template #NotMX>Failed</ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="results.score && results.format_valid">
+          <td>Quality and Deliverability Score</td>
+          <td>
+            <span>{{ results.score }} / 1</span>
+          </td>
+        </tr>
+       
+      </tbody>
+    </table>
+  </div>
+  <div class="box">
+    <h3>Phone Number Validation using NUM VERIFY API</h3>
+    <p>Advanced phone number validation to get country, location-lookup, carrier, line-type and validation details. Check fraud
+      by validating phone numbers at the point of entry into your system. Validate international phone numbers for 232 countries
+      using their unique international dial codes. To integrate NUMVERIFY API into your application visit
+      <a href="https://numverify.com/" target="_blank">NUMVERIFY</a>
+    </p>
+    <div class="form-group">
+      <input class="form-control" class="search" [(ngModel)]="number" placeholder="Validate Phone Number" (keyup.enter)="checkNumber(number)"
+      />
+      <button class="btn btn-primary" (click)="checkNumber(number)">Search</button>
+      <p id="format">( Format Example: +14158586273, '+1' is US country code )</p>
+    </div>
+    <div class="NumMessage">
+      <p *ngIf="NumMessageClass">{{ NumMessage }}</p>
+      <p *ngIf="NumLoadingResults">Fetching Results...</p>
+    </div>
+    <table *ngIf="NumResults" class="table table-bordered table-stripped table-hover table-condensed">
+      <thead>
+        <tr class="info">
+          <th colspan="2">Results</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr [ngClass]="{'success': NumResults.valid, 'danger': !NumResults.valid}">
+          <td>Validity</td>
+          <td>
+            <span *ngIf="NumResults.valid; else NumberNotValid">Valid</span>
+            <ng-template #NumberNotValid>Not Valid</ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="NumResults.country_name">
+          <td>Country</td>
+          <td>
+            {{ NumResults.country_name }}
+          </td>
+        </tr>
+        <tr *ngIf="NumResults.location">
+          <td>Location</td>
+          <td>
+            <span>{{ NumResults.location }}</span>
+          </td>
+        </tr>
+        <tr *ngIf="NumResults.carrier">
+          <td>Carrier</td>
+          <td>
+            {{ NumResults.carrier }}
+          </td>
+        </tr>
+        <tr *ngIf="NumResults.line_type">
+          <td>Line Type</td>
+          <td>{{ NumResults.line_type }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="box">
+      <h3>Language Detection using Language Layer API</h3>
+      <p>Languagelayer API efficiently matchs text of any length to its corresponding language, 
+        cross-referencing single words, expressions and grammatical constructions, as well as taking into account any existing accents, 
+        dialects and other linguistic deviations. Capable of processing over 170 different languages and accents worldwide. To integrate Language Layer API into your application visit
+        <a href="https://languagelayer.com/" target="_blank">LANGUAGELAYER</a>
+      </p>
+      <div class="form-group">
+        <input class="form-control" class="search" [(ngModel)]="language" placeholder="Enter text" (keyup.enter)="checkLanguage(language)"
+        />
+        <button class="btn btn-primary" (click)="checkLanguage(language)">Search</button>
+      </div>
+      <div class="LanMessage">
+        <p *ngIf="LanMessageClass">{{ LanMessage }}</p>
+        <p *ngIf="LanLoadingResults">Fetching Results...</p>
+      </div>
+      <div *ngFor="let language of LanResults?.results">
+        <p *ngIf="!LanResults?.success">API request failed. Please try after some time.</p>
+          <table *ngIf="LanResults?.success" class="table table-bordered table-stripped table-hover table-condensed">
+              <thead>
+                <tr class="info">
+                  <th colspan="2">Results</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="language.language_code">
+                  <td>Language Code</td>
+                  <td>
+                    {{ language.language_code }}
+                  </td>
+                </tr>
+                <tr *ngIf="language.language_name">
+                  <td>Language Name</td>
+                  <td>
+                    <span>{{ language.language_name }}</span>
+                  </td>
+                </tr>
+                <tr *ngIf="language.probability">
+                  <td>Probability(0-100%)</td>
+                  <td>
+                    {{ language.probability }}
+                  </td>
+                </tr>
+                <tr [ngClass]="{'success': language.reliable_result, 'danger': !language.reliable_result}">
+                    <td>Reliability</td>
+                    <td>
+                      <span *ngIf="language.reliable_result; else NotReliable">Reliable</span>
+                      <ng-template #NotReliable>Not Reliable</ng-template>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+</div>

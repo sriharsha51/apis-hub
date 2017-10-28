@@ -1,0 +1,36 @@
+<div class="heading">
+    <h2>{{title}}!</h2>
+    <p>Pixabay is a vibrant community of creatives, sharing copyright free images and videos.
+       All contents are released under Creative Commons CC0, which makes them safe to use without asking for permission or giving credit to the artist - even for commercial purposes.
+       To integrate pixabay API into your application visit <a href="https://pixabay.com/api/docs/" target="_blank">PIXABAY</a></p>      
+</div>
+<div class="search">
+  <input class="search" [(ngModel)]="searchQuery" placeholder="Search for Images" (keyup.enter)="searchImages(searchQuery)"
+  />
+  <button class="btn btn-primary" (click)="searchImages(searchQuery)">Search</button>
+  <img src="https://pixabay.com/static/img/logo.png" height=20 alt="pixabay logo">
+</div>
+<div class="message">
+  <p *ngIf="messageClass">{{ message }}</p>
+  <p *ngIf="loadingImages">Fetching Images and data...</p>
+  <p *ngIf="images">Click on image to view</p>
+</div>
+<div class="box-container">
+  <div *ngFor="let image of images">
+    <div class="box">
+      <a href="{{ image.webformatURL}}" target="_blank">
+        <img src="{{ image.webformatURL }}" />
+      </a>
+      <div class="img-data">
+        <div class="tags">
+          <p>Tags: {{ image.tags }}</p>
+        </div>
+        <p>User: {{ image.user }}</p>
+        <p>Comments: {{ image.comments }}</p>
+        <p>Likes: {{ image.likes }}</p>
+        <p>Image height: {{ image.imageHeight }}</p>
+        <p>Image height: {{ image.imageWidth }}</p>
+      </div>
+    </div>
+  </div>
+</div>

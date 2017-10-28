@@ -1,0 +1,26 @@
+<div class="heading">
+    <h2>{{title}}!</h2>
+    <p>Everyone loves the Google CDN right? Even Microsoft runs a public CDN. 
+        The problem is, they only host the most popular libraries. 
+        CDNJS hosts all the popular libraries - JavaScript, CSS, SWF, images, etc!
+         CDNJS is one of the most famous free and public web front-end CDN services which is used by ~2,380,000 websites worldwide.
+          To integrate CDNJS API into your application visit <a href="https://cdnjs.com/api" target="_blank">CDNJS</a></p>      
+</div>
+<div class="search">
+  <input class="search" [(ngModel)]="searchQuery" placeholder="Search for CDNs" (keyup.enter)="searchCdns(searchQuery)"
+  />
+  <button class="btn btn-primary" (click)="searchCdns(searchQuery)">Search</button>
+</div>
+<div class="message">
+  <p *ngIf="messageClass">{{ message }}</p>
+  <p *ngIf="loadingCdns">Fetching CDNs...</p>
+</div>
+<div class="box-container">
+  <div *ngFor="let cdn of cdns">
+    <div class="box">
+      <p class="name">{{ cdn.name | uppercase}}</p>
+      <hr>
+      <p class="link">CDN:<a href="{{ cdn.latest }}" target="_blank">{{cdn.latest}}</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+.jumbotron {
+    text-align: center;
+}
+h2 {
+    font-weight: bold;
+}
+a {
+    text-decoration: none;
+    color: #2C3E50;
+}
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.box {
+  flex: 1 1 250;
+  background: #eee;
+  margin: 20px;
+  box-shadow: 5px 5px 5px;
+  min-height: 420px;
+}
+
+h3{
+    padding: 10px;
+    text-align: center;
+}
+.box p {
+    justify-content: center;
+    text-align: center;
+    width: 250px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.box img {
+    margin:20px;
+    border: 2px solid rgb(30, 31, 32);
+    width:250px;
+    height:250px;
+    box-sizing: border-box;
+    align-content: center;
+    -webkit-transition: width 1s, height 1s; /* Safari */
+    transition: width 1s, height 1s;
+}
+.box img:hover {
+    width: 270px;
+    height: 270px;   
+}
+.api-list {
+    padding: 15px;
+}
+.data-validation {
+    min-height: 360px;
+    width: 380px;
+    -webkit-transition: width 1s, height 1s; /* Safari */
+    transition: width 1s, height 1s;
+}
+.data-validation:hover {
+    height:400px;
+    width:400px;
+}
+
